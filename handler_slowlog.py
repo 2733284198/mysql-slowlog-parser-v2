@@ -1,20 +1,10 @@
 # encoding:utf-8
 import os
 import sys
-import MySQLdb
-from config import mysqlconnection as mc
+# from config import mysqlconnection as mc
 
 reload(sys)
 sys.setdefaultencoding('utf8')
-
-# 连接数据库
-try:
-    conn = MySQLdb.connect(host=mc.get('Host', None), port=mc.get('Port', None),
-                           user=mc.get('User', None), passwd=mc.get('Pass', None), db=mc.get('db', None), charset='utf8')
-    conn.autocommit(True)
-except Exception as e:
-    print e
-
 
 def read_slow_log_to_list(file_name):
     # 组合每一分列表[],[]...
@@ -89,26 +79,15 @@ def handler_slowlog(file_name):
         # break
     return slow_info
 
-
-def do_save_to_mysql(table, fields, param):
-    sql = "insert into %s(%s) values %s" % (table, fields, param)
-    # print sql
-    cur = conn.cursor()
-    try:
-        cur.execute(sql)
-    except Exception as e:
-        print "入库错误:%s" % (e)
-
-
 if __name__ == '__main__':
     base_dir = os.path.dirname(os.path.abspath(__file__))
-    file_name = os.path.join(base_dir, 'slow.log')
+    file_name = os.path.join(base_dir, 'data/slow.log')
     # 返回慢查询日志文件中处理后的各列数据
     res = handler_slowlog(file_name)
     # 表中需要插入数据的列名
     fields = ['start_time', 'db_user', 'app_ip', 'thread_id',
               'exec_duration', 'rows_sent', 'rows_examined', 'slowsql']
 
-    数据入库
+    # 数据入库
     for val in res:
-        do_save_to_mysql('slow_log', ','.join(fields), val)
+        print val
