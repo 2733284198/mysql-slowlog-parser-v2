@@ -29,11 +29,11 @@ with open(fileName, 'r') as f:
     '''
 
     pat = ''.join([
-            r'#\s+Time:\s+(.*?)\s+',
-            r'#\s+User@Host:\s+(.*?)\[(.*?)\]\s+@\s+\[(.*?)\]\s+Id:\s+(.*?)\s+',
-            r'#\s+Query_time:\s+(.*?)\s+Lock_time:\s+(.*?)\s+Rows_sent:\s+(.*?)\s+Rows_examined:\s+(.*?)\s+',
-            r'SET timestamp=(.*?)\s+',
-            r'(.*)'
+            r'#\s+Time:\s+(.*?)\n',
+            r'#\s+User@Host:\s+(.*?)\[(.*?)\]\s+@\s+\[(.*?)\]\s+Id:\s+(.*?)\n',
+            r'#\s+Query_time:\s+(.*?)\s+Lock_time:\s+(.*?)\s+Rows_sent:\s+(.*?)\s+Rows_examined:\s+(.*?)\n',
+            r'SET timestamp=(.*?)\n',
+            r'([\s\S]*)'
         ])
     # pat = r'#\s+Time:\s+(.*?)\s+#\s+User@Host:\s+(.*?)\[(.*?)\]\s+@\s+\[(.*?)\]\s+Id:\s+(.*?)\s+#\s+Query_time:\s+(.*?)\s+Lock_time:\s+(.*?)\s+Rows_sent:\s+(.*?)\s+Rows_examined:\s+(.*?)\s+SET timestamp=(.*?)\s+(.*)'
     # print(pat)
